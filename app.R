@@ -13,6 +13,8 @@ library(tidyr)
 library(data.table)
 library(ggplot2)
 library(gridExtra)
+library(rlist)
+
 
 
 
@@ -93,7 +95,7 @@ init(main_file)
 ui <- fluidPage(
   
   # Application title
-  titlePanel("Phenology Luki (floraison)"),
+  titlePanel("Phenology Luki (prototype)"),
   
   # Sidebar with a slider input for number of bins 
   verticalLayout(
@@ -116,9 +118,39 @@ server <- function(input, output) {
   
   output$plotflo <- renderPlot({
     init_chart(input$selectedSpecies)
+    i<-0
     if(flag_display)
     {
-      grid.arrange(grobs=list(plot_flo,plot_fru,plot_def,plot_diss), ncol=2)
+      list_chart <- list()
+      if(!is.null(plot_flo))
+      {
+        i<-i+1
+        list_chart[[i]]<-plot_flo
+        
+      }
+      if(!is.null(plot_fru))
+      {
+        i<-i+1
+        list_chart[[i]]<-plot_fru
+        
+      }
+      if(!is.null(plot_def))
+      {
+        i<-i+1
+        list_chart[[i]]<-plot_def
+        
+      }
+      if(!is.null(plot_diss))
+      {
+        i<-i+1
+        list_chart[[i]]<-plot_diss
+        
+      }
+      
+      
+    
+      
+      grid.arrange(grobs=list_chart, ncol=2)
     }
     #par(op)
   }, height = 1000, width = 1000 )
@@ -128,4 +160,6 @@ server <- function(input, output) {
 
 # Run the application 
 shinyApp(ui = ui, server = server)
+
+
 
