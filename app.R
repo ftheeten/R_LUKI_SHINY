@@ -75,7 +75,7 @@ init_chart<-function(species)
   cp_diss <- tmp_grp %>% count(diss) %>% tidyr::spread(key=diss, value=n)
   plot_flo<<-generate_plot(cp_flo, "Floraison")
   plot_fru<<-generate_plot(cp_fru, "Fructification")
-  plot_def<<-generate_plot(cp_fru, "Défloraison")
+  plot_def<<-generate_plot(cp_def, "Défloraison")
   plot_diss<<-generate_plot(cp_diss, "Dissémination")
 }
 
